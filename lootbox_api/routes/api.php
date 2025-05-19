@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SportController;
+use App\Http\Controllers\LearningController;
 
 Route::prefix("v1")->group(function () {
 
@@ -31,5 +32,13 @@ Route::prefix("v1")->group(function () {
         Route::get("{sport}", [SportController::class, "show"])->middleware("auth:sanctum");
         Route::put("{sport}", [SportController::class, "update"])->middleware("auth:sanctum");
         Route::delete("{sport}", [SportController::class, "destroy"])->middleware("auth:sanctum");
+    });
+
+    Route::prefix("learning")->group(function () {
+        Route::get("", [LearningController::class, "index"])->middleware("auth:sanctum");
+        Route::post("", [LearningController::class, "create"])->middleware("auth:sanctum");
+        Route::get("{learning}", [LearningController::class, "show"])->middleware("auth:sanctum");
+        Route::put("{learning}", [LearningController::class, "update"])->middleware("auth:sanctum");
+        Route::delete("{learning}", [LearningController::class, "destroy"])->middleware("auth:sanctum");
     });
 });
