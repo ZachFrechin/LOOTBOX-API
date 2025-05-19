@@ -25,6 +25,7 @@ class UpdateRequest extends FormRequest
             'name' => 'string|max:255',
             'time_min' => 'integer|min:0',
             'time_max' => 'integer|min:0',
+            'progress' => 'numeric|min:0|max:100',
         ];
     }
 }

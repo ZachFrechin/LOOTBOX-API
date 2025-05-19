@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->time('time_min');
             $table->time('time_max');
+            $table->decimal('progress', 5, 2)->default(0.00);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

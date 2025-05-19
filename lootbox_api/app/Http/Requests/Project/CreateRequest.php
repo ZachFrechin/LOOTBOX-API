@@ -25,6 +25,7 @@ class CreateRequest extends FormRequest
             'name' => 'required|string|max:255|unique:projects',
             'time_min' => 'required|integer|min:0',
             'time_max' => 'required|integer|min:0',
+            'progress' => 'required|numeric|min:0|max:100',
         ];
     }
 }

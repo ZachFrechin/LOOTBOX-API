@@ -12,7 +12,8 @@ class Learning extends Model
         'user_id',
         'name',
         'time_min',
-        'time_max'
+        'time_max',
+        'progress'
     ];
 
     public function type()

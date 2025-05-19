@@ -19,6 +19,7 @@ class LearningResource extends JsonResource
             'name' => $this->name,
             'time_min' => $this->time_min,
             'time_max' => $this->time_max,
+            'progress' => $this->progress,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
