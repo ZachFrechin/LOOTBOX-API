@@ -9,6 +9,7 @@ class Rank extends Model
     protected $fillable = [
         'name',
         'probability',
+        'multiplier',
     ];
 
     public function lootBox()

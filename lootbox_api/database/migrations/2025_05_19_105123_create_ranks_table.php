@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('probability', 5, 2);
+            $table->decimal('multiplier', 10, 2);
             $table->timestamps();
         });
     }

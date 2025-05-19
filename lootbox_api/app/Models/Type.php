@@ -16,6 +16,15 @@ abstract class Type extends Model
         return $this->belongsTo(User::class);
     }
 
+    public static function types(): array
+    {
+        return [
+            Sport::class,
+            Learning::class,
+            Project::class
+        ];
+    }
+
     // This method must be implemented by child classes
     abstract public function getType(): string;
 

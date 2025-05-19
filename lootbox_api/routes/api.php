@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\LearningController;
+use App\Http\Controllers\LootBoxController;
 
 Route::prefix("v1")->group(function () {
 
@@ -40,5 +41,10 @@ Route::prefix("v1")->group(function () {
         Route::get("{learning}", [LearningController::class, "show"])->middleware("auth:sanctum");
         Route::put("{learning}", [LearningController::class, "update"])->middleware("auth:sanctum");
         Route::delete("{learning}", [LearningController::class, "destroy"])->middleware("auth:sanctum");
+    });
+
+    Route::prefix("lootbox")->group(function () {
+        Route::get("", [LootBoxController::class, "index"])->middleware("auth:sanctum");
+        Route::post("", [LootBoxController::class, "loot"])->middleware("auth:sanctum");
     });
 });
