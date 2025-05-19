@@ -9,6 +9,8 @@ use App\Http\Controllers\LearningController;
 use App\Http\Controllers\LootBoxController;
 use App\Http\Controllers\ModeController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RankController;
 
 Route::prefix("v1")->group(function () {
 
@@ -59,6 +61,26 @@ Route::prefix("v1")->group(function () {
 
     Route::prefix("type")->group(function () {
         Route::get("", [TypeController::class, "index"])->middleware("auth:sanctum");
+    });
+
+    Route::prefix("category")->group(function () {
+        Route::get("", [CategoryController::class, "index"])->middleware("auth:sanctum");
+        Route::get("{category}", [CategoryController::class, "show"])->middleware("auth:sanctum");
+    });
+
+    // Type routes
+    Route::prefix('type')->group(function () {
+        Route::get('', [TypeController::class, 'index'])->middleware('auth:sanctum');
+        Route::post('', [TypeController::class, 'store'])->middleware('auth:sanctum');
+        Route::get('{type}', [TypeController::class, 'show'])->middleware('auth:sanctum');
+        Route::put('{type}', [TypeController::class, 'update'])->middleware('auth:sanctum');
+        Route::delete('{type}', [TypeController::class, 'destroy'])->middleware('auth:sanctum');
+        Route::get('user', [TypeController::class, 'getByUser'])->middleware('auth:sanctum');
+        Route::get('category/{category}', [TypeController::class, 'getByCategory'])->middleware('auth:sanctum');
+    });
+
+    Route::prefix('rank')->group(function () {
+        Route::get('', [RankController::class, 'index'])->middleware('auth:sanctum');
     });
 
 });

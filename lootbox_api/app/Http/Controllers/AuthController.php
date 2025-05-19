@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Services\UserService;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -19,7 +20,7 @@ class AuthController extends Controller
         $user = $this->userService->create($request->username, $request->password);
         return response()->json([
             'message' => 'User created successfully',
-            'user' => $user,
+            'user' => new UserResource($user),
         ], 201);
     }
 

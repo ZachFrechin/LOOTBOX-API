@@ -4,6 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\RankResource;
+use App\Http\Resources\TypeResource;
+use App\Http\Resources\UserResource;
 
 class LootBoxResource extends JsonResource
 {
@@ -16,9 +19,9 @@ class LootBoxResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'rank' => $this->rank,
-            'type' => $this->type,
-            'user' => $this->user,
+            'rank' => new RankResource($this->rank),
+            'type' => new TypeResource($this->type),
+            'user' => new UserResource($this->user),
         ];
     }
 }

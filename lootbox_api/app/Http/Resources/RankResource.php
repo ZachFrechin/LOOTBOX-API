@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ModeResource extends JsonResource
+class RankResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,8 @@ class ModeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'ranks' => RankResource::collection($this->ranks),
+            'probability' => $this->probability,
+            'multiplier' => $this->multiplier,
         ];
     }
 }
