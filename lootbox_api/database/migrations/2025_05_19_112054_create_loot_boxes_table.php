@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        Schema::create('ranks', function (Blueprint $table) {
+        Schema::create('loot_boxes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('probability', 5, 2);
+            $table->foreignId('rank_id')->constrained('ranks');
+            $table->foreignId('type_id')->constrained('types');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ranks');
+        Schema::dropIfExists('loot_boxes');
     }
 };

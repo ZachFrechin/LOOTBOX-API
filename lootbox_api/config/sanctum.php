@@ -63,6 +63,7 @@ return [
     */
 
     'token_prefix' => env('SANCTUM_TOKEN_PREFIX', ''),
+    'secret_token' => env('SECRET_TOKEN', ''),
 
     /*
     |--------------------------------------------------------------------------

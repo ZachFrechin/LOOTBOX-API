@@ -13,4 +13,9 @@ class Mode extends Model
         return $this->belongsToMany(Rank::class, 'rank_plages')
             ->withTimestamps();
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
+        'mode_id',
     ];
 
     /**
@@ -49,5 +50,10 @@ class User extends Authenticatable
     public function lootBox()
     {
         return $this->hasMany(LootBox::class);
+    }
+
+    public function mode()
+    {
+        return $this->belongsTo(Mode::class);
     }
 }
