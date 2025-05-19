@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function lootBox()
+    {
+        return $this->hasMany(LootBox::class);
+    }
 }

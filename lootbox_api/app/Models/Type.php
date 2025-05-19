@@ -12,4 +12,9 @@ abstract class Type extends Model
 
     // This method must be implemented by child classes
     abstract public function getType(): string;
+
+    public function lootBox()
+    {
+        return $this->hasMany(LootBox::class);
+    }
 }
