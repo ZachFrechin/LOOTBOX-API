@@ -9,7 +9,7 @@ class Sport extends Model
     protected $table = 'sports';
     
     protected $fillable = [
-        'type_id',
+        'user_id',
         'name',
         'min',
         'max'

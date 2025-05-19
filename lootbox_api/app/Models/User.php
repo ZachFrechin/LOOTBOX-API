@@ -56,4 +56,24 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Mode::class);
     }
+
+    public function types()
+    {
+        return $this->hasMany(Type::class);
+    }
+
+    public function sports()
+    {
+        return $this->hasMany(Sport::class);
+    }
+
+    public function learnings()
+    {
+        return $this->hasMany(Learning::class);
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
