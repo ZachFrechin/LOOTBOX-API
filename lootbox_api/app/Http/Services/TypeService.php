@@ -9,23 +9,14 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TypeService
 {
-    public function create(array $data, User $user): Type
+    public function create(array $data): Type
     {
-        return Type::create([
-            'name' => $data['name'],
-            'descriptor' => $data['descriptor'],
-            'category_id' => $data['category_id'],
-            'user_id' => $user->id
-        ]);
+        return Type::create($data);
     }
 
     public function update(Type $type, array $data): Type
     {
-        $type->update([
-            'name' => $data['name'] ?? $type->name,
-            'descriptor' => $data['descriptor'] ?? $type->descriptor,
-            'category_id' => $data['category_id'] ?? $type->category_id
-        ]);
+        $type->update($data);
 
         return $type;
     }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use App\Models\Category;
-use App\Services\TypeService;
+use App\Http\Services\TypeService;
 use App\Http\Requests\Type\StoreTypeRequest;
 use App\Http\Requests\Type\UpdateTypeRequest;
 use Illuminate\Http\Request;
