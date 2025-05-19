@@ -7,6 +7,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SportController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\LootBoxController;
+use App\Http\Controllers\ModeController;
+use App\Http\Controllers\TypeController;
 
 Route::prefix("v1")->group(function () {
 
@@ -16,7 +18,10 @@ Route::prefix("v1")->group(function () {
     });
 
     Route::prefix("user")->group(function () {
-        Route::get("me", [UserController::class, "show"])->middleware("auth:sanctum");
+        Route::get("", [UserController::class, "show"])->middleware("auth:sanctum");
+        Route::put("", [UserController::class, "update"])->middleware("auth:sanctum");
+        Route::put("/password", [UserController::class, "updatePassword"])->middleware("auth:sanctum");
+        Route::put("/mode/{mode}", [UserController::class, "setMode"])->middleware("auth:sanctum");
     });
 
     Route::prefix("project")->group(function () {
@@ -47,4 +52,13 @@ Route::prefix("v1")->group(function () {
         Route::get("", [LootBoxController::class, "index"])->middleware("auth:sanctum");
         Route::post("", [LootBoxController::class, "loot"])->middleware("auth:sanctum");
     });
+
+    Route::prefix("mode")->group(function () {
+        Route::get("", [ModeController::class, "index"])->middleware("auth:sanctum");
+    });
+
+    Route::prefix("type")->group(function () {
+        Route::get("", [TypeController::class, "index"])->middleware("auth:sanctum");
+    });
+
 });
