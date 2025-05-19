@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Mode;
 class UserService extends Service
 {
     public function create(string $username, string $password): User | null
@@ -34,5 +35,29 @@ class UserService extends Service
     public function byId(int $id): User | null
     {
         return User::findOrFail($id);
+    }
+    public function update(User $user, array $data): User | null
+    {
+        $user->update($data);
+        return $user;
+    }
+
+    public function setMode(User $user, Mode $mode): User | null
+    {
+        $user->mode_id = $mode->id;
+        $user->save();
+        return $user;
+    }
+
+    public function getMode(User $user): Mode | null
+    {
+        return $user->mode;
+    }
+
+    public function updatePassword(User $user, string $password): User | null
+    {
+        $user->password = Hash::make($password);
+        $user->save();
+        return $user;
     }
 }
