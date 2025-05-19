@@ -12,6 +12,7 @@ class UserService extends Service
         $user = User::create([
             'username' => $username,
             'password' => Hash::make($password),
+            'mode_id' => 1,
         ]);
 
         return $user;

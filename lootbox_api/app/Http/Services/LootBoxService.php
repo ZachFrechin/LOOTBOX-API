@@ -38,9 +38,7 @@ class LootBoxService extends Service
 
     public function lootType()
     {
-        $types = Type::types();
-        $randomType = $types[array_rand($types)];
-        return $randomType::inRandomOrder()->first();
+        return Type::inRandomOrder()->first();
     }
 
     public function loot(User $user): LootBox
@@ -51,8 +49,7 @@ class LootBoxService extends Service
         $lootbox = $this->create([
             'rank_id' => $rank->id,
             'user_id' => $user->id,
-            'typeable_id' => $type->id,
-            'typeable_type' => get_class($type)
+            'type_id' => $type->id
         ]);
         
         return $lootbox;

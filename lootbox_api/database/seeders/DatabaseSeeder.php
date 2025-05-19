@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            CategorySeeder::class,
+        ]);
+
         // User::factory(10)->create();
 
         $mode = Mode::create([
@@ -38,29 +42,6 @@ class DatabaseSeeder extends Seeder
             'username' => 'jack',
             'password' => Hash::make('password'),
             'mode_id' => $mode->id
-        ]);
-
-        // Create one of each type
-        Sport::create([
-            'name' => 'Running',
-            'min' => 30,
-            'max' => 60,
-            'user_id' => $user->id
-        ]);
-
-        Learning::create([
-            'name' => 'PHP Course',
-            'time_min' => '01:00:00',
-            'time_max' => '02:00:00',
-            'user_id' => $user->id
-        ]);
-
-        Project::create([
-            'name' => 'Website',
-            'time_min' => '02:00:00',
-            'time_max' => '04:00:00',
-            'progress' => 0.00,
-            'user_id' => $user->id
         ]);
     }
 }

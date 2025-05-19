@@ -2,16 +2,38 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-abstract class Type extends Model
+class Type extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
+        'min',
+        'max',
+        'unity',
+        'challenge',
+        'general',
+        'half_god',
+        's_ranked',
+        'category_id',
         'user_id'
     ];
 
-    public function user()
+    protected $casts = [
+        'min' => 'float',
+        'max' => 'float'
+    ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -26,10 +48,24 @@ abstract class Type extends Model
     }
 
     // This method must be implemented by child classes
-    abstract public function getType(): string;
 
-    public function lootBox()
+    public function lootBoxes()
     {
         return $this->hasMany(LootBox::class);
+    }
+
+    public function getFields(): array
+    {
+        return $this->descriptor['fields'] ?? [];
+    }
+
+    public function getIcon(): string
+    {
+        return $this->descriptor['icon'] ?? '📦';
+    }
+
+    public function getDescription(): string
+    {
+        return $this->descriptor['description'] ?? '';
     }
 }
