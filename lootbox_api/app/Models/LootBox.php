@@ -3,42 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LootBox extends Model
 {
     protected $fillable = [
+        'type_id',
         'rank_id',
         'user_id',
-        'typeable_id',
-        'typeable_type'
+        'value'
     ];
 
-    protected $with = ['rank', 'user', 'typeable'];
+    protected $with = ['rank', 'user', 'type'];
 
     protected $appends = ['type_name'];
 
-    public function rank()
+    protected $casts = [
+        'value' => 'float'
+    ];
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function rank(): BelongsTo
     {
         return $this->belongsTo(Rank::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function typeable()
-    {
-        return $this->morphTo();
-    }
-
-    public function getTypeAttribute()
-    {
-        return $this->typeable;
-    }
-
     public function getTypeNameAttribute()
     {
-        return $this->typeable ? $this->typeable->getType() : null;
+        return $this->type ? $this->type->name : null;
     }
 }

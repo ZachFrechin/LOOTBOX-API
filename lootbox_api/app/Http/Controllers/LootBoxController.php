@@ -7,6 +7,8 @@ use App\Http\Services\LootBoxService;
 use App\Http\Resources\LootBoxResource;
 use Illuminate\Http\JsonResponse;
 use App\Models\LootBox;
+use App\Models\User;
+use Exception;
 
 class LootBoxController extends Controller
 {
@@ -19,12 +21,19 @@ class LootBoxController extends Controller
 
     public function index(Request $request) : JsonResponse
     {
-        return response()->json(["lootboxes" => LootBoxResource::collection($this->lootBoxService->all($request->user()))], 200);
+        $lootBoxes = $this->lootBoxService->getByUser($request->user());
+        return response()->json(LootBoxResource::collection($lootBoxes));
     }
 
     public function loot(Request $request) : JsonResponse
     {
-        $lootBox = $this->lootBoxService->loot($request->user());
-        return response()->json(["lootbox" => new LootBoxResource($lootBox)], 201);
+        try {
+            $lootBox = $this->lootBoxService->loot($request->user());
+            return response()->json(["lootbox" => new LootBoxResource($lootBox)], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 400);
+        }
     }
 }

@@ -19,6 +19,7 @@ class LootBoxResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'value' => $this->value,
             'rank' => new RankResource($this->rank),
             'type' => new TypeResource($this->type),
             'user' => new UserResource($this->user),

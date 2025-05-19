@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $rank = Rank::create([
-            'name' => 'Rank 1',
+            'name' => 'Half God',
             'probability' => 1.0,
-            'multiplier' => 1.0
+            'multiplier' => 12.3
         ]);
 
         $mode->ranks()->attach($rank->id);

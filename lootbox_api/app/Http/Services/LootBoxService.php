@@ -10,53 +10,77 @@ use Illuminate\Support\Collection;
 use App\Models\Sport;
 use App\Models\Learning;
 use App\Models\Project;
+use Exception;
 
 class LootBoxService extends Service
 {
+
+    public function all(User $user): Collection
+    {
+        return LootBox::where('user_id', $user->id)->get();
+    }
+
     public function create(array $data): LootBox | null
     {
         $lootBox = LootBox::create($data);
         return $lootBox;
     }
 
-    public function lootRank(User $user) : Rank
+    public function loot(User $user): LootBox
     {
-        $mode = $user->mode;
-        $rank = $mode->ranks;
-        $randomValue = mt_rand(0, 100) / 100;
-        $cumulativeProbability = 0;
+        $rank = $this->getRandomRank($user->mode);
+        if (!$rank) {
+            throw new Exception('No ranks available for this mode');
+        }
 
-        foreach ($rank as $currentRank) {
-            $cumulativeProbability += $currentRank->probability;
-            if ($randomValue <= $cumulativeProbability) {
-                return $currentRank;
+        $type = $this->getRandomType($user);
+        if (!$type) {
+            throw new Exception('No types available for this user');
+        }
+        
+        $randomValue = mt_rand($type->min * 100, $type->max * 100) / 100;
+        $finalValue = $randomValue * $rank->multiplier;
+
+        return LootBox::create([
+            'type_id' => $type->id,
+            'rank_id' => $rank->id,
+            'user_id' => $user->id,
+            'value' => $finalValue
+        ]);
+    }
+
+    public function getByUser(User $user): Collection
+    {
+        return LootBox::with(['type', 'rank'])
+            ->where('user_id', $user->id)
+            ->get();
+    }
+
+    private function getRandomRank($mode): ?Rank
+    {
+        $ranks = $mode->ranks;
+        if ($ranks->isEmpty()) {
+            return null;
+        }
+
+        $totalProbability = $ranks->sum('probability');
+        $random = mt_rand(0, $totalProbability * 100) / 100;
+
+        $currentProbability = 0;
+        foreach ($ranks as $rank) {
+            $currentProbability += $rank->probability;
+            if ($random <= $currentProbability) {
+                return $rank;
             }
         }
 
-        return $rank->first();
+        return $ranks->first();
     }
 
-    public function lootType()
+    private function getRandomType(User $user): ?Type
     {
-        return Type::inRandomOrder()->first();
-    }
-
-    public function loot(User $user): LootBox
-    {
-        $rank = $this->lootRank($user);
-        $type = $this->lootType();
-        
-        $lootbox = $this->create([
-            'rank_id' => $rank->id,
-            'user_id' => $user->id,
-            'type_id' => $type->id
-        ]);
-        
-        return $lootbox;
-    }
-
-    public function all(User $user) : Collection
-    {
-        return LootBox::where('user_id', $user->id)->get();
+        return Type::where('user_id', $user->id)
+            ->inRandomOrder()
+            ->first();
     }
 }

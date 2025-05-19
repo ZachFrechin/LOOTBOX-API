@@ -10,9 +10,10 @@ return new class extends Migration
     {
         Schema::create('loot_boxes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('type_id')->constrained()->onDelete('cascade');
             $table->foreignId('rank_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->morphs('typeable');
+            $table->float('value');
             $table->timestamps();
         });
     }
