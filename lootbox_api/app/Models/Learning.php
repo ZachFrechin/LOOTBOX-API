@@ -9,10 +9,11 @@ class Learning extends Model
     protected $table = 'learnings';
     
     protected $fillable = [
-        'type_id',
+        'user_id',
         'name',
         'time_min',
-        'time_max'
+        'time_max',
+        'progress'
     ];
 
     public function type()

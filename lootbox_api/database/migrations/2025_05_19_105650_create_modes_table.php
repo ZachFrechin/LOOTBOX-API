@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('learnings', function (Blueprint $table) {
+        Schema::create('modes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
             $table->string('name');
-            $table->time('time_min');
-            $table->time('time_max');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('learnings');
+        Schema::dropIfExists('modes');
     }
 };

@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+
+        Schema::create('ranks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->time('time_min');
-            $table->time('time_max');
-            $table->decimal('progress', 5, 2)->default(0.00);
+            $table->decimal('probability', 5, 2);
+            $table->decimal('multiplier', 10, 2);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('ranks');
     }
 };
