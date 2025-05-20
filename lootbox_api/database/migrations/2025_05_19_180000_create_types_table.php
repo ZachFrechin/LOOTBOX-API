@@ -14,10 +14,11 @@ return new class extends Migration
             $table->float('min');
             $table->float('max');
             $table->string('unity');
-            $table->string('challenge')->nullable();
-            $table->string('general')->nullable();
-            $table->string('half_god')->nullable();
-            $table->string('s_ranked')->nullable();
+            $table->string('CHALLENGE')->nullable();
+            $table->string('GENERAL')->nullable();
+            $table->string('HALF GOD')->nullable();
+            $table->string('S RANKED')->nullable();
+            $table->float('progress')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();

@@ -15,10 +15,11 @@ class Type extends Model
         'min',
         'max',
         'unity',
-        'challenge',
-        'general',
-        'half_god',
-        's_ranked',
+        'CHALLENGE',
+        'GENERAL',
+        'HALF GOD',
+        'S RANKED',
+        'progress',
         'category_id',
         'user_id'
     ];
